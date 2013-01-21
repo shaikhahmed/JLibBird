@@ -73,7 +73,7 @@ public class JsearchWindow extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "Book Name" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "Book_Name" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -175,7 +175,7 @@ public class JsearchWindow extends javax.swing.JFrame {
 	       }
         else{
             try {
-                rs = stmt.executeQuery("Select * from displaytable where `"+column +"` like `"+ name+"`");
+                rs = stmt.executeQuery("Select * from displaytable where '"+column +"' like '"+ name+"'");
                  while(rs.next())
 	   	   {
                if(column.equals(rs.getObject(0).toString())&&name.equals(rs.getObject(0).toString())){
