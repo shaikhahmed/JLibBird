@@ -174,7 +174,7 @@ public class JsearchWindow extends javax.swing.JFrame {
 	       }
         else{
             try {
-                rs = stmt.executeQuery("Select * from displaytable where '"+column +"' like '%"+ name+"%'");
+                rs = stmt.executeQuery("Select * from displaytable where `"+column +"` like '%"+ name+"%'");
                 jTextArea1.setText("Not Found");
                 String out="";
                  while(rs.next())
