@@ -96,6 +96,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         searchIssueItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         searchIssueItem.setText("Search Issue");
+        searchIssueItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchIssueItemActionPerformed(evt);
+            }
+        });
         searchMenu.add(searchIssueItem);
 
         jMenuBar1.add(searchMenu);
@@ -116,7 +121,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jShowDataTable)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,6 +176,17 @@ public class MainWindow extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_jShowDataTableActionPerformed
+
+    private void searchIssueItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchIssueItemActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new issueSearch().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_searchIssueItemActionPerformed
 
     /**
      * @param args the command line arguments
