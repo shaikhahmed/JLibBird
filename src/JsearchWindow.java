@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,10 +9,9 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
-
 /**
  *
  * @author sadi
@@ -156,6 +156,7 @@ public class JsearchWindow extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new MainWindow().setVisible(true);
@@ -170,69 +171,61 @@ public class JsearchWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String column =  jComboBox1.getSelectedItem().toString();
+        String column = jComboBox1.getSelectedItem().toString();
         String name = jTextField1.getText().toString();
-        int test=1;
-        
-        Connection conn=getConn();
-	       Statement stmt = null;
-	       ResultSet rs = null;
+        int test = 1;
+
+        Connection conn = getConn();
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             stmt = conn.createStatement();
         } catch (SQLException ex) {
             Logger.getLogger(JEntryWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-                 String query; 
-        if(conn==null)
-	       {
-	    	   System.out.print("Connection is not established");
-	       }
-        else{
+        String query;
+        if (conn == null) {
+            System.out.print("Connection is not established");
+        } else {
             try {
-                rs = stmt.executeQuery("Select * from displaytable where `"+column +"` like '%"+ name+"%'");
+                rs = stmt.executeQuery("Select * from displaytable where `" + column + "` like '%" + name + "%'");
                 //jTextArea1.setText("Not Found");
-                
-                    DefaultTableModel defaultTableModel =  new DefaultTableModel(
-            new Object [][] {
 
-            },
-            new String [] {
-                "id", "Book_Name", "Author_Name", "ISBN_Number", "Qunatity", "Available"
-            }
-        );
+                DefaultTableModel defaultTableModel = new DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "id", "Book_Name", "Author_Name", "ISBN_Number", "Qunatity", "Available"
+                        });
 
-    int numberOfColumns = rs.getMetaData().getColumnCount();
-    
+                int numberOfColumns = rs.getMetaData().getColumnCount();
 
-    while (rs.next())
-    {
-        Object [] rowData = new Object[numberOfColumns];
-        for (int i = 0; i < rowData.length; ++i)
-        {
-            rowData[i] = rs.getString(i+1);
-        }
-        defaultTableModel.addRow(rowData);
-        test = 0;
-    }
-             //    while(rs.next())
-	   //	   {
-            //    out += rs.getObject(2).toString() + "\n";
-                 
-            //       }
-                   
-             //      jTextArea1.setText(out);  
- if (test == 1 )
-     defaultTableModel =  new DefaultTableModel(
-            new Object [][] { {"Not Found"}
 
-            },
-            new String [] {
-                "Error"
-            }
-        );
- 
-           jTable1.setModel(defaultTableModel);     
-            }catch (SQLException ex) {
+                while (rs.next()) {
+                    Object[] rowData = new Object[numberOfColumns];
+                    for (int i = 0; i < rowData.length; ++i) {
+                        rowData[i] = rs.getString(i + 1);
+                    }
+                    defaultTableModel.addRow(rowData);
+                    test = 0;
+                }
+                //    while(rs.next())
+                //	   {
+                //    out += rs.getObject(2).toString() + "\n";
+
+                //       }
+
+                //      jTextArea1.setText(out);  
+                if (test == 1) {
+                    defaultTableModel = new DefaultTableModel(
+                            new Object[][]{{"Not Found"}
+                            },
+                            new String[]{
+                                "Error"
+                            });
+                }
+
+                jTable1.setModel(defaultTableModel);
+            } catch (SQLException ex) {
                 Logger.getLogger(JsearchWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -242,10 +235,14 @@ public class JsearchWindow extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /*
+         * Set the Nimbus look and feel
+         */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -265,8 +262,11 @@ public class JsearchWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /*
+         * Create and display the form
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new JsearchWindow().setVisible(true);
@@ -285,27 +285,22 @@ public class JsearchWindow extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private Connection getConn() { Connection conn     = null;
-	       String url          = "jdbc:mysql://localhost:3306/";
-	       String db           = "bird_db";
-	       String driver       = "com.mysql.jdbc.Driver";
-	       String user         = "root";
-	       String pass         = "sadi";
-	       try {
-	           	Class.forName(driver).newInstance();
-	       	} 
-	       catch (Exception e) 
-	       {
-	       }
-	       try 
-	       {
-	    	   conn = DriverManager.getConnection(url+db, user, pass);
-	       } 
-	       catch (SQLException e) 
-	       {
-	            System.err.println("Mysql Connection Error: ");
-	       }
-	       return conn;
-		}
-    
+    private Connection getConn() {
+        Connection conn = null;
+        String url = "jdbc:mysql://localhost:3306/";
+        String db = "bird_db";
+        String driver = "com.mysql.jdbc.Driver";
+        String user = "root";
+        String pass = "sadi";
+        try {
+            Class.forName(driver).newInstance();
+        } catch (Exception e) {
+        }
+        try {
+            conn = DriverManager.getConnection(url + db, user, pass);
+        } catch (SQLException e) {
+            System.err.println("Mysql Connection Error: ");
+        }
+        return conn;
+    }
 }
