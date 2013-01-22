@@ -178,12 +178,12 @@ public class JsearchWindow extends javax.swing.JFrame {
                 rs = stmt.executeQuery("Select * from displaytable where '"+column +"' like '"+ name+"'");
                  while(rs.next())
 	   	   {
-               if(column.equals(rs.getObject(0).toString())&&name.equals(rs.getObject(0).toString())){
+//               if(column.equals(rs.getObject(0).toString())&&name.equals(rs.getObject(0).toString())){
                 String out=rs.getObject(1).toString();
                 jTextArea1.setText(out);   
                 test=0;
                 break;
-                       }
+//                       }
                    }
                  if(test==1){
                   jTextArea1.setText("Not Found");   
