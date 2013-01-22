@@ -1,3 +1,12 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +17,7 @@
  * @author sadi
  */
 public class issueWindow extends javax.swing.JFrame {
+    private String Null;
 
     /**
      * Creates new form issueWindow
@@ -37,6 +47,9 @@ public class issueWindow extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,12 +67,21 @@ public class issueWindow extends javax.swing.JFrame {
         });
 
         jButton2.setText("Done");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Book Name");
 
         jLabel5.setText("Quantity");
 
         jButton3.setText("show issue Table");
+
+        jLabel6.setText("id");
+
+        jLabel7.setText("jLabel7");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,23 +93,29 @@ public class issueWindow extends javax.swing.JFrame {
                         .addGap(152, 152, 152)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6))
                         .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
+                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(jTextField5)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButton3)))
+                        .addGap(117, 117, 117)
+                        .addComponent(jLabel7)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,11 +139,17 @@ public class issueWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addGap(16, 16, 16))
         );
@@ -133,6 +167,54 @@ public class issueWindow extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String userName = jTextField1.getText().toString();
+        String issueDate = jTextField2.getText().toString();
+        String bookName = jTextField3.getText().toString();
+        String quantity = jTextField4.getText().toString();
+        int rtn = (Integer.parseInt(issueDate)+10);
+        String returnDate = Integer.toString(rtn);
+        String id = jTextField5.getText().toString();
+//        String dOG = dOGText.getText().toString();
+//        String dOR = dORText.getText().toString();
+//        String wYG = wYGText.getText().toString();
+//                
+         Connection conn=getConn();
+	       Statement stmt = null;
+	       ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(JEntryWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 String query; 
+        if(conn==null)
+	       {
+	    	   System.out.print("Connection is not established");
+	       }
+              else
+	       {
+                   //System.out.println("id "+id+" authorName: "+authorName+" bookName: "+bookName+isbnNumber);
+	    	   System.out.println("Connection is established");
+                   query="INSERT INTO `issuetable` (id,Name,Book_Name,Issue_Date,Return_Date,Quantity) " +
+	                   "VALUES ( '" + id + "' , '"+ userName +"','"+ bookName +"','"+issueDate+"','"+returnDate+"','"+quantity+");";
+                   try {
+                      stmt.executeUpdate(query);
+                      jLabel7.setText("Successfully Inserted");
+                      jTextField1.setText(Null);
+                      jTextField2.setText(Null);
+                      jTextField3.setText(Null);
+                      jTextField4.setText(Null);
+                      jTextField5.setText(Null);
+//                      dOGText.setText(Null);
+//                      dORText.setText(Null);
+//                      wYGText.setText(Null);
+                      } catch (SQLException ex) {
+                         Logger.getLogger(JEntryWindow.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+	       }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +245,7 @@ public class issueWindow extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+           @Override
             public void run() {
                 new issueWindow().setVisible(true);
             }
@@ -177,9 +260,37 @@ public class issueWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+ private Connection getConn() 
+		{
+
+	       Connection conn     = null;
+	       String url          = "jdbc:mysql://localhost:3306/";
+	       String db           = "bird_db";
+	       String driver       = "com.mysql.jdbc.Driver";
+	       String user         = "root";
+	       String pass         = "sadi";
+	       try {
+	           	Class.forName(driver).newInstance();
+	       	} 
+	       catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
+	       {
+	       }
+	       try 
+	       {
+	    	   conn = DriverManager.getConnection(url+db, user, pass);
+	       } 
+	       catch (SQLException e) 
+	       {
+	            System.err.println("Mysql Connection Error: ");
+	       }
+	       return conn;
+		}
 }
