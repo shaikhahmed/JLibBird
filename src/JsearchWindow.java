@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -175,19 +174,17 @@ public class JsearchWindow extends javax.swing.JFrame {
 	       }
         else{
             try {
-                rs = stmt.executeQuery("Select * from displaytable where '"+column +"' like '"+ name+"'");
+                rs = stmt.executeQuery("Select * from displaytable where '"+column +"' like '%"+ name+"%'");
+                jTextArea1.setText("Not Found");
+                String out="";
                  while(rs.next())
 	   	   {
-//               if(column.equals(rs.getObject(0).toString())&&name.equals(rs.getObject(0).toString())){
-                String out=rs.getObject(1).toString();
-                jTextArea1.setText(out);   
-                test=0;
-                break;
-//                       }
+                out += rs.getObject(1).toString() + "\n";
+                 
                    }
-                 if(test==1){
-                  jTextArea1.setText("Not Found");   
-                 }
+                   
+                   jTextArea1.setText(out);  
+
                 
             }catch (SQLException ex) {
                 Logger.getLogger(JsearchWindow.class.getName()).log(Level.SEVERE, null, ex);
