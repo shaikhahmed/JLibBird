@@ -61,11 +61,11 @@ public issueTableData()
     Vector<String> headers=new Vector<String>();
 
     headers.add("id");
-    headers.add("Author Name");
+    headers.add("Name");
     headers.add("Book Name");
-    headers.add("ISBN Number");
     headers.add("Quantity");
-    headers.add("Available");
+    headers.add("Issue Date");
+    headers.add("Return Date");
     
     getData();
     
@@ -127,14 +127,14 @@ public static void header_size() {
         column = table.getColumnModel().getColumn(5);
         column.setPreferredWidth(95);
         
-        column = table.getColumnModel().getColumn(6);
-        column.setPreferredWidth(95);
-        
-        column = table.getColumnModel().getColumn(7);
-        column.setPreferredWidth(95);
-        
-        column = table.getColumnModel().getColumn(8);
-        column.setPreferredWidth(95);
+//        column = table.getColumnModel().getColumn(6);
+//        column.setPreferredWidth(95);
+//        
+//        column = table.getColumnModel().getColumn(7);
+//        column.setPreferredWidth(95);
+//        
+//        column = table.getColumnModel().getColumn(8);
+//        column.setPreferredWidth(95);
      }
 /**
 * Fetching Data From MySql Database 
@@ -168,7 +168,6 @@ private static void getData()
             d.add(rs.getString("Quantity"));
             d.add(rs.getString("Issue_Date"));
             d.add(rs.getString("Return_Date"));
-            
             d.add("\n\n\n\n\n\n\n");
             data.add(d);
           }
