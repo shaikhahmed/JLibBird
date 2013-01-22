@@ -54,7 +54,7 @@ public class issueSearch extends javax.swing.JFrame {
 
         jLabel3.setText("Search By");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "User_Name" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "Name" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
