@@ -306,7 +306,7 @@ public class updateWindow extends javax.swing.JFrame {
 	       try {
 	           	Class.forName(driver).newInstance();
 	       	} 
-	       catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
+	       catch (Exception e) 
 	       {
 	       }
 	       try 

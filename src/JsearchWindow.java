@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -81,15 +82,20 @@ public class JsearchWindow extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "id", "Book_Name", "Author_Name", "ISBN_Number", "Qunatity", "Available"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,17 +190,48 @@ public class JsearchWindow extends javax.swing.JFrame {
         else{
             try {
                 rs = stmt.executeQuery("Select * from displaytable where `"+column +"` like '%"+ name+"%'");
-                jTextArea1.setText("Not Found");
-                String out="";
-                 while(rs.next())
-	   	   {
-                out += rs.getObject(2).toString() + "\n";
-                 
-                   }
-                   
-                   jTextArea1.setText(out);  
-
+                //jTextArea1.setText("Not Found");
                 
+                    DefaultTableModel defaultTableModel =  new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Book_Name", "Author_Name", "ISBN_Number", "Qunatity", "Available"
+            }
+        );
+
+    int numberOfColumns = rs.getMetaData().getColumnCount();
+    
+
+    while (rs.next())
+    {
+        Object [] rowData = new Object[numberOfColumns];
+        for (int i = 0; i < rowData.length; ++i)
+        {
+            rowData[i] = rs.getString(i+1);
+        }
+        defaultTableModel.addRow(rowData);
+        test = 0;
+    }
+             //    while(rs.next())
+	   //	   {
+            //    out += rs.getObject(2).toString() + "\n";
+                 
+            //       }
+                   
+             //      jTextArea1.setText(out);  
+ if (test == 1 )
+     defaultTableModel =  new DefaultTableModel(
+            new Object [][] { {"Not Found"}
+
+            },
+            new String [] {
+                "Error"
+            }
+        );
+ 
+           jTable1.setModel(defaultTableModel);     
             }catch (SQLException ex) {
                 Logger.getLogger(JsearchWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -257,7 +294,7 @@ public class JsearchWindow extends javax.swing.JFrame {
 	       try {
 	           	Class.forName(driver).newInstance();
 	       	} 
-	       catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
+	       catch (Exception e) 
 	       {
 	       }
 	       try 
