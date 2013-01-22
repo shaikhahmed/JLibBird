@@ -254,11 +254,20 @@ public class JsearchWindow extends javax.swing.JFrame {
 	       String driver       = "com.mysql.jdbc.Driver";
 	       String user         = "root";
 	       String pass         = "sadi";
-	       try {
+	      try {
 	           	Class.forName(driver).newInstance();
 	       	} 
-	       catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
+	       catch (InstantiationException e) 
 	       {
+	           e.printStackTrace();
+	       } 
+	       catch (IllegalAccessException e) 
+	       {
+	           e.printStackTrace();
+	       } 
+	       catch (ClassNotFoundException e) 
+	       {
+	           e.printStackTrace();
 	       }
 	       try 
 	       {
@@ -267,6 +276,7 @@ public class JsearchWindow extends javax.swing.JFrame {
 	       catch (SQLException e) 
 	       {
 	            System.err.println("Mysql Connection Error: ");
+	            e.printStackTrace();
 	       }
 	       return conn;
 		}
