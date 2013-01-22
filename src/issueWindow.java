@@ -201,7 +201,7 @@ public class issueWindow extends javax.swing.JFrame {
                    //System.out.println("id "+id+" authorName: "+authorName+" bookName: "+bookName+isbnNumber);
 	    	   System.out.println("Connection is established");
                    query="INSERT INTO `issuetable` (id,Name,Book_Name,Issue_Date,Return_Date,Quantity) " +
-	                   "VALUES ( '" + id + "' , '"+ userName +"','"+ bookName +"','"+issueDate+"','"+returnDate+"','"+quantity+");";
+	                   "VALUES ( id '"+ id +"','"+ userName +"','"+ bookName +"','"+issueDate+"','"+returnDate+"','"+quantity+");";
                    try {
                       stmt.executeUpdate(query);
                       jLabel7.setText("Successfully Inserted");
