@@ -148,6 +148,7 @@ private static void getData()
     Connection cn;
     ResultSet rs;
     Statement st;
+    data.clear();
     try {
 // Change the database name, hosty name, 
 // port and password as per MySQL installed in your PC.
