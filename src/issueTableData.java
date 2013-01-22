@@ -163,7 +163,7 @@ private static void getData()
         {
             Vector <String> d=new Vector<String>();
             d.add(rs.getString("id"));
-            d.add(rs.getString("User_Name"));
+            d.add(rs.getString("Name"));
             d.add(rs.getString("Book_Name"));
             d.add(rs.getString("Quantity"));
             d.add(rs.getString("Issue_Date"));
