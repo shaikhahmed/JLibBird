@@ -179,7 +179,7 @@ public class JsearchWindow extends javax.swing.JFrame {
                 String out="";
                  while(rs.next())
 	   	   {
-                out += rs.getObject(1).toString() + "\n";
+                out += rs.getObject(2).toString() + "\n";
                  
                    }
                    
