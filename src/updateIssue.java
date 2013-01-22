@@ -1,3 +1,12 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +17,7 @@
  * @author sadi
  */
 public class updateIssue extends javax.swing.JFrame {
+    private String Null;
 
     /**
      * Creates new form updateIssue
@@ -34,6 +44,8 @@ public class updateIssue extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,6 +54,11 @@ public class updateIssue extends javax.swing.JFrame {
         jLabel2.setText("User Name");
 
         jButton1.setText("Done");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,6 +71,13 @@ public class updateIssue extends javax.swing.JFrame {
         jLabel4.setText("Quantity");
 
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("id");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,20 +90,22 @@ public class updateIssue extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
                         .addGap(90, 90, 90)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jTextField4))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +125,11 @@ public class updateIssue extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -112,6 +142,63 @@ public class updateIssue extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new issueTableData().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        String name = jTextField1.getText().toString();
+         String bookName = jTextField2.getText().toString();
+         String quantity = jTextField3.getText().toString();
+        String id = jTextField4.getText().toString();
+//        available = jTextField5.getText().toString();
+//        String id = jTextField6.getText().toString();
+       // int id1=Integer.parseInt(id);
+        
+        Connection conn=getConn();
+	       Statement stmt = null;
+	       ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(updateWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 String query; 
+        if(conn==null)
+	       {
+	    	   System.out.print("Connection is not established");
+	       }
+              else
+	       {
+                   //System.out.println("id "+id+" authorName: "+authorName+" bookName: "+bookName+isbnNumber);
+	    	   System.out.println("Connection is established");
+//                   query = "UPDATE displaytable SET Author_Name=" + authorName + ","+"Book_Name="+bookName+","+"ISBN_Number="+isbnNumber+","+"Quantity="+quantity+","+"Available="+available
+                   try {
+                      stmt.executeUpdate("UPDATE issuetable SET Name = '" + name + "' , "+"Book_Name = '"+bookName+"' , "+"Quantity = '"+quantity+"'   WHERE id = "+id +";");
+//                      jLabel8.setText("Successfully Inserted");
+                      jTextField1.setText(Null);
+                      jTextField2.setText(Null);
+                      jTextField3.setText(Null);
+                      jTextField4.setText(Null);
+//                      jTextField5.setText(Null);
+//                      jTextField6.setText(Null);
+//                      dOGText.setText(Null);
+//                      dORText.setText(Null);
+//                      wYGText.setText(Null);
+                      } catch (SQLException ex) {
+                         Logger.getLogger(updateIssue.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+               }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,6 +229,7 @@ public class updateIssue extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new updateIssue().setVisible(true);
             }
@@ -154,8 +242,34 @@ public class updateIssue extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    private Connection getConn() {
+         Connection conn     = null;
+	       String url          = "jdbc:mysql://localhost:3306/";
+	       String db           = "bird_db";
+	       String driver       = "com.mysql.jdbc.Driver";
+	       String user         = "root";
+	       String pass         = "sadi";
+	       try {
+	           	Class.forName(driver).newInstance();
+	       	} 
+	       catch (Exception e) 
+	       {
+	       }
+	       try 
+	       {
+	    	   conn = DriverManager.getConnection(url+db, user, pass);
+	       } 
+	       catch (SQLException e) 
+	       {
+	            System.err.println("Mysql Connection Error: ");
+	       }
+	       return conn;
+    }
 }
